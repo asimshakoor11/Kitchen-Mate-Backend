@@ -16,15 +16,38 @@ const app = express();
 // Connect to database
 connectDB();
 
+// CORS configuration
+const corsOptions = {
+  origin: [
+    'http://localhost:8080/',
+    'http://localhost:3000',
+    'https://kitchen-mate-front-end.vercel.app',
+    'https://kitchen-mate-front-end.vercel.app/'
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+};
+
 // Middleware
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
+
+// Root route
+app.get('/', (req, res) => {
+  res.json({
+    message: 'Hello from KitchenMate API!',
+    status: 'running',
+    version: '1.0.0'
+  });
+});
 
 // Routes
 app.use('/api/middleWare', verifyTokenRoute);
 app.use('/api/auth', authRoutes);
 app.use('/api/product', productRoutes);
 app.use('/api/order', orderRoutes);
+
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
