@@ -43,10 +43,10 @@ app.get('/', (req, res) => {
 });
 
 // Routes
-app.use('/middleWare', verifyTokenRoute);
-app.use('/auth', authRoutes);
-app.use('/product', productRoutes);
-app.use('/order', orderRoutes);
+app.use('middleWare', verifyTokenRoute);
+app.use('auth', authRoutes);
+app.use('product', productRoutes);
+app.use('order', orderRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
