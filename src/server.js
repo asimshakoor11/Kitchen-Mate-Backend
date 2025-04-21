@@ -18,20 +18,26 @@ connectDB();
 
 // CORS configuration
 const corsOptions = {
-  origin: [
-    'http://localhost:8080/',
-    'http://localhost:3000',
-    'https://kitchen-mate-front-end.vercel.app',
-    'https://kitchen-mate-front-end.vercel.app/'
-  ],
+  origin: '*', // Allow all origins
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
+  exposedHeaders: ['Content-Range', 'X-Content-Range'],
+  credentials: true,
+  maxAge: 600 // Cache preflight requests for 10 minutes
 };
 
 // Middleware
 app.use(cors(corsOptions));
 app.use(express.json());
+
+// Add CORS headers to all responses
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  next();
+});
 
 // Root route
 app.get('/', (req, res) => {
@@ -43,10 +49,10 @@ app.get('/', (req, res) => {
 });
 
 // Routes
-app.use('middleWare', verifyTokenRoute);
-app.use('auth', authRoutes);
-app.use('product', productRoutes);
-app.use('order', orderRoutes);
+app.use('/api/middleWare', verifyTokenRoute);
+app.use('/api/auth', authRoutes);
+app.use('/api/product', productRoutes);
+app.use('/api/order', orderRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
