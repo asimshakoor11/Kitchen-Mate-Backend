@@ -1,11 +1,11 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import connectDB from './config/db.js';
-import authRoutes from './routes/authRoutes.js';
-import productRoutes from './routes/productRoutes.js'
-import verifyTokenRoute from './middleware/authMiddleware.js'
-import orderRoutes from './routes/orderRoutes.js';
+import connectDB from './src/config/db.js';
+import authRoutes from './src/routes/authRoutes.js';
+import productRoutes from './src/routes/productRoutes.js'
+import verifyTokenRoute from './src/middleware/authMiddleware.js'
+import orderRoutes from './src/routes/orderRoutes.js';
 
 // Load environment variables
 dotenv.config();
