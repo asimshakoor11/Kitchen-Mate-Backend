@@ -130,9 +130,10 @@ export const forgotPassword = async (req, res) => {
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: user.email,
-      subject: 'Password Reset Request',
+      subject: 'Kitchen Mate: Password Reset Request',
       html: `
-        <h1>Password Reset Request</h1>
+        <h1>Kitchen Mate Password Reset Request</h1>
+        <h2>Password Reset Request</h2>
         <p>You requested a password reset for your account.</p>
         <p>Click this link to reset your password:</p>
         <a href="${resetUrl}">${resetUrl}</a>
